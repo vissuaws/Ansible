@@ -1,5 +1,5 @@
 - name: Stop a service on all servers
-  hosts: all
+  hosts: all # Can be changed as per requirments
   become: yes
 
   tasks:
