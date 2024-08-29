@@ -1,0 +1,8 @@
+---
+- name: Ping all nodes from the server
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Ping nodes
+      ping:
