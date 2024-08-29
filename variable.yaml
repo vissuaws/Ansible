@@ -1,13 +1,16 @@
-- name: variable in ansible
+---
+- name: Example of using variables in Ansible
   hosts: node1
   vars:
-   Car: vw
-   colour: blue
-   kms: 20K Kms
+    Car: vw
+    colour: blue
+    kms: 20K Kms
+
   tasks:
-  - name: print 
-    ansible.builtin.debug:
-     msg: "Hey, this is my car"
-  - name: print via variables
-    ansible.builtin.debug: 
-     msg: "Hey, this is my car : {{Car}} & Colour : {{colour}}
+    - name: Print a static message
+      ansible.builtin.debug:
+        msg: "Hey, this is my car"
+
+    - name: Print using variables
+      ansible.builtin.debug:
+        msg: "Hey, this is my car: {{ Car }} & Colour: {{ colour }} with {{ kms }} driven"
