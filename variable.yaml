@@ -1,0 +1,13 @@
+- name: variable in ansible
+  hosts: node1
+  vars:
+   Car: vw
+   colour: blue
+   kms: 20K Kms
+  tasks:
+  - name: print 
+    ansible.builtin.debug:
+     msg: "Hey, this is my car"
+  - name: print via variables
+    ansible.builtin.debug: 
+     msg: "Hey, this is my car : {{Car}} & Colour : {{colour}}
