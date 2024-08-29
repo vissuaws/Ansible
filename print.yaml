@@ -1,0 +1,9 @@
+- name: variable in ansible
+  host: node1
+  tasks:
+  - name: print Hello world
+    ansible.builtin.debug:
+     msg: "Hey, I am vissu testing Node1"
+
+     
+      
