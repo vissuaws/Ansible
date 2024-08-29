@@ -1,0 +1,16 @@
+---
+- name: Install a service on all nodes
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Ensure the service is installed
+      package:
+        name: httpd   # Replace with the name of the package you want to install
+        state: present
+
+    - name: Ensure the service is started
+      service:
+        name: httpd   # Replace with the name of the service you want to manage
+        state: started
+        enabled: yes
