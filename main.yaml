@@ -1,0 +1,14 @@
+---
+- name: Example of using variables in Ansible
+  hosts: node1
+  vars_files:
+    - car_vars.yml
+
+  tasks:
+    - name: Print a static message
+      ansible.builtin.debug:
+        msg: "Hey, this is my car"
+
+    - name: Print using variables
+      ansible.builtin.debug:
+        msg: "Hey, this is my car: {{ Car }} & Colour: {{ colour }} with {{ kms }} driven"
