@@ -1,0 +1,10 @@
+---
+- name: Start a service on all servers
+  hosts: all  #can change for particular node
+  become: yes
+
+  tasks:
+    - name: Start the service
+      service:
+        name: nginx  # Replace with your service name
+        state: started

@@ -1,0 +1,12 @@
+- name: Stop a service on all servers
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Stop the service
+      service:
+        name: nginx  # Replace with your service name
+        state: stopped
+
+~                                                                                                                                                             
+~                             
