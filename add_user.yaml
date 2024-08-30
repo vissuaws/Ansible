@@ -1,0 +1,29 @@
+---
+- name: Add a user to the node based on a condition
+  hosts: node1
+  become: yes
+
+  vars:
+    username: testuser
+
+  tasks:
+    - name: Check if the user exists
+      ansible.builtin.shell: id -u {{ username }}
+      register: user_check
+      ignore_errors: yes
+
+    - name: Add the user if it does not exist
+      ansible.builtin.user:
+        name: "{{ username }}"
+        state: present
+      when: user_check.rc != 0
+
+    - name: Print user addition status
+      ansible.builtin.debug:
+        msg: "User {{ username }} has been added."
+      when: user_check.rc != 0
+
+    - name: Print user already exists status
+      ansible.builtin.debug:
+        msg: "User {{ username }} already exists."
+      when: user_check.rc == 0
