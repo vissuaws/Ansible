@@ -1,0 +1,65 @@
+---
+- name: Ansible Loop Examples
+  hosts: localhost
+  vars:
+    users:
+      - john
+      - jane
+      - doe
+    packages:
+      - git
+      - vim
+      - curl
+    services:
+      - name: nginx
+        state: started
+      - name: httpd
+        state: stopped
+  tasks:
+
+    - name: Create multiple users using a loop
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ users }}"
+      loop_control:
+        loop_var: item
+
+    - name: Install multiple packages using a loop
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"
+
+    - name: Manage multiple services using a loop with dictionaries
+      ansible.builtin.service:
+        name: "{{ item.name }}"
+        state: "{{ item.state }}"
+      loop: "{{ services }}"
+
+    - name: Loop over a list with an index
+      ansible.builtin.debug:
+        msg: "User {{ item }} is at index {{ idx }}"
+      loop: "{{ users }}"
+      loop_control:
+        index_var: idx
+
+    - name: Nested loops (Users and Groups)
+      ansible.builtin.debug:
+        msg: "Assigning {{ user }} to {{ group }}"
+      with_nested:
+        - "{{ users }}"
+        - ["admin", "sudo"]
+
+    - name: Use the `until` loop to retry a command until successful
+      ansible.builtin.shell: "curl -I http://localhost"
+      register: result
+      until: result.rc == 0
+      retries: 5
+      delay: 10
+
+    - name: Loop with a pause between iterations
+      ansible.builtin.debug:
+        msg: "Processing {{ item }}"
+      loop: "{{ packages }}"
+      pause: 5  # Pause for 5 seconds between iterations
