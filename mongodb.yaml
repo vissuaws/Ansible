@@ -11,7 +11,7 @@
 
   - name: Ensure MongoDB package is installed
     ansible.builtin.package:
-      name: mongodb-org  # Adjust to the correct package name if needed
+      name: mongodb-mongosh  # Adjust to the correct package name if needed
       state: present
 
   - name: Enable MongoDB service at boot
